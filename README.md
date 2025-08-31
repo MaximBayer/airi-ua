@@ -36,7 +36,7 @@ pnpm tauri build
 1. **Завантажте** `AIRI-Ukrainian-Portable.zip` з [Releases](https://github.com/MaximBayer/airi-ua/releases)
 2. **Розпакуйте** в будь-яку папку на вашому комп'ютері
 3. **Запустіть** `start-airi.bat`
-4.  <img width="495" height="244" alt="Знімок екрана 2025-08-31 142439" src="https://github.com/user-attachments/assets/9cbb2ac3-083e-499a-945a-2d8ab69c4d6f" />
+<img width="495" height="244" alt="Знімок екрана 2025-08-31 142439" src="https://github.com/user-attachments/assets/9cbb2ac3-083e-499a-945a-2d8ab69c4d6f" />
 5. **Відкриється** браузер з AIRI інтерфейсом
 6. **Готово!** AIRI працює локально у вашому браузері
 
