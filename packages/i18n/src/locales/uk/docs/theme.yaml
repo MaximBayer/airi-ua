@@ -1,0 +1,49 @@
+doc:
+  outline:
+    title: Зміст статті
+  community:
+    title: Спільнота
+    edit:
+      title: Редагувати сторінку
+    star-github:
+      title: Поставити зірку на Github
+    discord:
+      title: Наш Discord сервер
+    support:
+      title: Підтримати проект
+  next-page:
+    title: Наступна сторінка
+  previous-page:
+    title: Попередня сторінка
+home:
+  subtitle: >-
+    Відтворюємо Нейро-саму, втілюючи душі нейронних вайфу в реальність
+  download:
+    title: Завантажити
+  get-started:
+    title: Посібник з встановлення
+  try-live:
+    title: Спробувати в Live
+search:
+  title: Пошук
+  placeholder: Шукати в документації...
+navbar:
+  appearance:
+    title: Зовнішність
+  language:
+    title: Мова
+pages:
+  characters:
+    title: Персонажі
+blog:
+  title: Блог & ДевЛоги
+  subtitle: Слідкуй за новинами та отримуй останні оновлення від команди розробки
+  card:
+    post:
+      read-more:
+        title: Читати далі
+  no-posts: Пости не знайдено в цій категорії.
+  categories:
+    all: Все
+    devlog: ДевЛог
+    dreamlog: Хроніки

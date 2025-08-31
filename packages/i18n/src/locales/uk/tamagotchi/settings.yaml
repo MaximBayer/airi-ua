@@ -1,0 +1,36 @@
+allow-visible-on-all-workspaces:
+  title: Міжпросторова видимість
+  description: Дозволяє вікну бути видимим на всіх робочих столах, тільки для macOS.
+pages:
+  modules:
+    mcp-server:
+      description: Можливість підключення та управління MCP сервером з інструментами
+      title: MCP Сервер
+  themes:
+    sections:
+      section:
+        window-shortcuts:
+          title: Клавіші навігації вікна
+    window-shortcuts:
+      description: Редагування гарячих клавіш для управління вікном
+      title: Гарячі клавіші управління вікном
+      toggle-move:
+        label: Переміщення вікна
+      toggle-resize:
+        label: Масштабування вікна
+      toggle-ignore-mouse-event:
+        label: Ігнорувати курсор миші
+      press-keys: Натисніть будь-яку клавішу...
+systemTray:
+  settings: Налаштування
+  windowMode: Режим вікна
+  position: Позиція
+  hide: Сховати
+  show: Показати
+  quit: Вийти
+  center: По центру
+  bottomLeft: Внизу ліворуч
+  bottomRight: Внизу праворуч
+  fadeOnHover: Затухання при наведенні
+  move: Переміщення
+  resize: Масштабування

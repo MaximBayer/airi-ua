@@ -1,0 +1,15 @@
+import en from './en'
+import es from './es'
+import ru from './ru'
+import uk from './uk'
+import vi from './vi'
+import zhHans from './zh-Hans'
+
+export default {
+  en,
+  es,
+  ru,
+  uk,
+  vi,
+  'zh-Hans': zhHans,
+}

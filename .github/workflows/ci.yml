@@ -1,0 +1,121 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+env:
+  # Rust
+  CARGO_TERM_COLOR: always
+  # https://github.com/Mozilla-Actions/sccache-action#rust-code
+  RUSTC_WRAPPER: sccache
+  SCCACHE_GHA_ENABLED: 'true'
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Rust
+      - uses: dtolnay/rust-toolchain@nightly
+      # - uses: mozilla-actions/sccache-action@v0.0.3
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y libwebkit2gtk-4.1-dev
+
+      # Node.js
+      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install
+
+      - name: Lint
+        run: |
+          pnpm run lint
+
+  build-test:
+    name: Build Test (${{ matrix.app_name }})
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.label, 'moeru-ai:i18n/')) }}
+    strategy:
+      matrix:
+        include:
+          - command: pnpm -F @proj-airi/stage-web run build && pnpm -F @proj-airi/docs run build:base && mv ./docs/.vitepress/dist ./apps/stage-web/dist/docs && pnpm -F @proj-airi/stage-ui run story:build && mv ./packages/stage-ui/.histoire/dist ./apps/stage-web/dist/ui
+            app_name: stage-web
+          - command: pnpm -F @proj-airi/stage-tamagotchi run build
+            app_name: stage-tamagotchi
+          - command: pnpm -F @proj-airi/ui-transitions run build && pnpm -F @proj-airi/ui-transitions run play:build
+            app_name: ui-transitions
+          - command: pnpm -F @proj-airi/ui-loading-screens run build && pnpm -F @proj-airi/ui-loading-screens run play:build
+            app_name: ui-loading-screens
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Rust
+      - uses: dtolnay/rust-toolchain@nightly
+      # - uses: mozilla-actions/sccache-action@v0.0.3
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y libwebkit2gtk-4.1-dev
+
+      # Turborepo
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build
+        run: |
+          pnpm run build:packages
+
+      - name: Build App
+        run: |
+          ${{ matrix.command }}
+
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.label, 'moeru-ai:i18n/')) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node.js
+      - uses: pnpm/action-setup@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install
+
+      - name: Typecheck
+        run: pnpm run typecheck

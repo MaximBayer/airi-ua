@@ -1,0 +1,620 @@
+animations:
+  stage-transitions:
+    title: Вимкнути переходи між сценами
+  use-page-specific-transitions:
+    description: >-
+      Деякі сторінки мають свої власні переходи — вони будуть перевизначати переходи сцен
+    title: Використовувати переходи для сторінок
+dialogs:
+  onboarding:
+    title: Ласкаво просимо до AIRI!
+    description: Давайте налаштуємо вашого першого AI-провайдера, щоб почати роботу.
+    selectProvider: Оберіть AI-провайдера
+    configureProvider: Налаштувати {provider}
+    apiKey: API-ключ
+    apiKeyHelp: Отримайте API-ключ у {provider} та вставте його сюди
+    baseUrl: Базовий URL
+    baseUrlHelp: URL кінцевої точки API (залиште за замовчуванням, якщо не впевнені)
+    accountId: ID облікового запису
+    validationFailed: Перевірка конфігурації не вдалася
+    validationError: 'Помилка перевірки: {error}'
+    skipForNow: Пропустити зараз
+    saveAndContinue: Зберегти і продовжити
+    next: Далі
+    start: Поїхали!
+    select-model: Оберіть модель
+    no-models: Немає доступних моделей
+    no-models-help: Поверніться на попередній крок і перевірте API-ключ або підключення до мережі.
+language:
+  title: Мова
+  description: >
+    Змінити мову інтерфейсу AIRI. Це не вплине на мову
+    відповідей персонажа.
+live2d:
+  change-model:
+    from-file: Завантажити з файлу
+    from-file-select: Обрати
+    from-url: Завантажити за URL
+    from-url-confirm: Завантажити
+    from-url-placeholder: Введіть URL моделі Live2D
+    title: Змінити модель
+  edit-motion-map:
+    title: Редагувати карту рухів
+  map-motions:
+    play: Відтворити рух
+    title: Карта рухів
+  title: Налаштування Live2D
+  scale-and-position:
+    title: Масштаб та позиція
+    scale: Масштаб
+    x: X
+    'y': 'Y'
+  switch-to-vrm:
+    title: Переключитися на 3D-аватар?
+    change-to-vrm: Натисніть тут, щоб переключитися на налаштування 3D-аватара (VRM)
+  theme-color-from-model:
+    title: Витягти кольори з моделі
+    button-extract:
+      title: Витягти
+  focus:
+    title: Вимкнути відстеження миші
+    button-disable:
+      title: Вимкнути
+microphone: Мікрофон
+models: Модель
+pages:
+  card:
+    activate: Активувати
+    active: Активно
+    active_badge: Поточна
+    cancel: Скасувати
+    card_not_found: Картку не знайдено
+    character: Персонаж
+    close: Закрити
+    consciousness:
+      model: Свідомість / Модель
+    created_by: створено
+    creator_notes: Примітки автора
+    delete: Видалити
+    delete_card: Видалити картку
+    delete_confirmation: Ви впевнені, що хочете видалити цю картку?
+    description: Використовуйте попередньо налаштовані картки персонажів AIRI
+    description_label: Опис
+    drop_here: Перетягніть сюди для завантаження
+    create_card: Створити нову картку
+    creation:
+      identity: Особистість
+      name: Ім'я
+      nickname: Нікнейм
+      description: Опис
+      behavior: Поведінка
+      greetings: Привітання (по одному на рядок)
+      settings: Налаштування
+      version: Версія
+      create: Створити
+      defaults:
+        name: Ім'я
+        personality: Ви звичайна людина, яка цікавиться всім.
+        scenario: Ви нещодавно прокинулися і забули все про попереднє життя.
+        systemprompt: Ви будете отримувати повідомлення, відповідайте на них як справжня людина.
+        posthistoryinstructions: Не забувайте наслідувати людину.
+      fields_info:
+        subtitle: >-
+          Тут можна вказати деталі про персонажа, якого ви створюєте,
+          описати його історію, контекст і те, як він повинен відповідати на взаємодії.
+        name: Формальне ім'я персонажа.
+        nickname: Можна дати нікнейм, який буде пріоритетним.
+        description: Опис персонажа.
+        notes: Особисті примітки.
+        personality: >-
+          Опишіть особистість персонажа. Сором'язливий? Цікавий? Що завгодно.
+        scenario: Його місцезнаходження? В якій він ситуації?
+        greetings_field: Привітання
+        greetings: Як персонаж повинен вітатися?
+        systemprompt: Опишіть, як AI повинен відповідати на запити.
+        posthistoryinstructions: Вкажіть, що AI повинен враховувати після історії повідомлень.
+        version: >-
+          Версія картки. Збільште число, якщо змінюєте попередню картку.
+      errors:
+        name: Ім'я повинно бути коректним і непустим.
+        version: 'Помилка: невірна версія!'
+        description: 'Помилка: необхідно вказати опис картки.'
+        personality: 'Помилка: необхідно вказати особистість персонажа.'
+        scenario: 'Помилка: потрібен сценарій.'
+        systemprompt: 'Помилка: вкажіть системний промпт.'
+        posthistoryinstructions: 'Помилка: потрібен post-history промпт.'
+    modules: Модулі
+    name_asc: Ім'я (А-Я)
+    name_desc: Ім'я (Я-А)
+    no_cards: Карток поки немає. Натисніть кнопку вище, щоб завантажити!
+    no_results: Картки не знайдено :(
+    personality: Особистість
+    posthistoryinstructions: Інструкції після історії
+    recent: Нещодавно додані
+    scenario: Сценарій
+    search: Шукати картки...
+    sort_by: Сортувати за
+    speech:
+      model: Мовлення / Модель
+      voice: Мовлення / Голос
+    systemprompt: Системний промпт
+    title: Картка AIRI
+    try_different_search: Спробуйте інший пошуковий запит
+    upload: Завантажити
+    upload_desc: Натисніть або перетягніть файл для завантаження
+  memory:
+    description: Сховище та організація спогадів
+    title: Пам'ять
+  models:
+    description: Live2D, VRM тощо
+    title: Моделі
+    sections:
+      section:
+        live2d:
+          title: Live2D
+          description: Налаштування моделей Live2D
+        vrm:
+          title: VRM
+          description: Налаштування 3D-моделей VRM
+        scene: Сцена
+  modules:
+    consciousness:
+      description: Особистість, модель свідомості тощо
+      sections:
+        section:
+          provider-model-selection:
+            collapse: Згорнути
+            custom_model_placeholder: Введіть назву кастомної моделі...
+            description: Оберіть підходящого LLM-провайдера для свідомості
+            error: Помилка завантаження моделей
+            expand: Розгорнути
+            loading: Завантаження доступних моделей...
+            manual_model_name: Назва моделі
+            manual_model_placeholder: Введіть ім'я моделі для використання
+            no_models: Моделей немає
+            no_models_description: Для цього провайдера моделі не знайдено
+            no_search_results: Збігів немає
+            no_search_results_description: Моделей, що відповідають '{query}', не знайдено.
+            not_supported: Список моделей не підтримується
+            not_supported_description: Цей провайдер не підтримує виведення списку моделей
+            search_placeholder: Пошук моделей...
+            search_results: Знайдено {count} з {total} моделей
+            show_less: Показати менше
+            show_more: Показати більше
+            subtitle: Оберіть модель у провайдера
+            title: Модель
+      title: Свідомість
+    description: Мислительний процес, зір, синтез мовлення, ігри тощо
+    gaming-factorio:
+      description: Граємо в Factorio!
+      title: Factorio
+    gaming-minecraft:
+      description: Граємо в Minecraft!
+      title: Minecraft
+    hearing:
+      description: Налаштування розпізнавання мовлення
+      title: Слух
+    memory-long-term:
+      description: Налаштування довготривалої пам'яті
+      title: Довготривала пам'ять
+    memory-short-term:
+      description: Налаштування короткотривалої пам'яті
+      title: Короткотривала пам'ять
+    messaging-discord:
+      description: Чат і голосовий чат через Discord
+      title: Discord
+    speech:
+      description: Синтез мовлення
+      sections:
+        section:
+          playground:
+            buttons:
+              stop:
+                label: Стоп
+            select-voice:
+              required: Оберіть голос
+          provider-voice-selection:
+            custom_model_placeholder: Введіть назву кастомної моделі...
+            custom_voice_placeholder: Введіть ID кастомного голосу...
+            description: Оберіть підходящого провайдера синтезу мовлення
+            no_models: Моделей немає
+            no_models_description: Моделі не знайдено
+            no_voices: Голосів немає
+            no_voices_description: Голоси не знайдено
+            no_voices_hint: Ви можете ввести назву кастомного голосу нижче.
+            pause: Пауза
+            play_sample: Відтворити зразок
+            search_models_placeholder: Пошук моделей...
+            search_models_results: Знайдено {count} з {total} моделей
+            search_voices_placeholder: Пошук голосів...
+            search_voices_results: Знайдено {count} з {total} голосів
+            show_less: Показати менше
+            show_more: Показати більше
+            title: Провайдер
+          voice-settings:
+            input-ssml:
+              placeholder: Введіть SSML-текст...
+            use-ssml:
+              description: Увімкніть для введення SSML замість звичайного тексту
+              label: Використовувати кастомний SSML
+      title: Мовлення
+    title: Модулі
+    vision:
+      description: Зір
+      title: Зір
+    x:
+      description: Перегляд і використання X / Twitter
+      title: X / Twitter
+    mcp-server:
+      description: Підключення та управління MCP-сервером і інструментами
+      title: MCP-сервер
+  providers:
+    explained:
+      chat: Провайдери генерації тексту, напр. OpenRouter, OpenAI, Ollama.
+      Speech: Провайдери мовлення (TTS), напр. ElevenLabs, Azure Speech.
+      Transcription: >-
+        Провайдери транскрипції (STT): Whisper.cpp, OpenAI, Azure Speech.
+    helpinfo:
+      title: Вперше тут?
+      description: >
+        AIRI потребує щонайменше одного {chat}-провайдера для коректної роботи.
+        Можна вважати його "мозком" персонажів у системі AIRI.
+    common:
+      fields:
+        field:
+          api-key:
+            label: Введення API-ключа
+      section:
+        advanced:
+          fields:
+            field:
+              headers:
+                description: Додати кастомні HTTP-заголовки
+                key:
+                  placeholder: Ключ
+                label: HTTP-заголовки
+                value:
+                  placeholder: Значення
+          title: Додатково
+        basic:
+          description: Основні налаштування
+          title: Базові
+        voice:
+          title: Налаштування голосу
+    description: LLM-моделі, провайдери мовлення тощо
+    provider:
+      app-local-audio-transcription:
+        title: Додаток (локально)
+        description: https://github.com/moeru-ai/xsai-transformers
+      app-local-audio-speech:
+        title: Додаток (локально)
+        description: https://github.com/moeru-ai/xsai-transformers
+      browser-local-audio-transcription:
+        title: Браузер (локально)
+        description: https://github.com/moeru-ai/xsai-transformers
+      browser-local-audio-speech:
+        title: Браузер (локально)
+        description: https://github.com/moeru-ai/xsai-transformers
+      alibaba-cloud-model-studio:
+        description: bailian.console.aliyun.com
+        title: Alibaba Cloud Model Studio
+      anthropic:
+        description: anthropic.com
+        title: Anthropic | Claude
+        helpinfo:
+          title: Перед початком
+          description:
+            part1: >-
+              Хоча Anthropic нещодавно оголосили про бета-підтримку сумісності з OpenAI SDK
+            part2: (детальніше тут)
+            part3: але через особливості реалізації є
+            part4: >-
+              обмеження, що не збігаються зі специфікою OpenAI SDK, тому зараз
+              використовувати цього провайдера в браузері неможливо.
+            part5: >-
+              Якщо провайдер необхідний, потрібен виділений проксі-бекенд
+              (наприклад, Serverless Function)
+            part6: або сервіси обходу CORS для зняття обмежень CORS.
+      cloudflare-workers-ai:
+        description: cloudflare.com
+        fields:
+          field:
+            account-id:
+              description: ID облікового запису Cloudflare
+              label: Account ID
+              placeholder: Ваш Cloudflare Account ID
+            api-key:
+              placeholder: Введіть Cloudflare API Key
+        title: Cloudflare Workers AI
+      common:
+        status:
+          validating: Перевірка
+          valid: Конфігурація здається правильною.
+        fields:
+          field:
+            pitch:
+              description: Налаштувати висоту синтезованого мовлення (вище/нижче)
+              label: Висота
+            speed:
+              description: Регулювання швидкості мовлення
+              label: Швидкість
+            volume:
+              description: Регулювання гучності мовлення
+              label: Гучність
+      deepseek:
+        description: deepseek.com
+        title: DeepSeek
+      elevenlabs:
+        description: elevenlabs.io
+        fields:
+          field:
+            simularity-boost:
+              description: Ступінь збереження схожості голосу
+              label: Similarity Boost
+            speaker-boost:
+              description: Посилення схожості з диктором
+              label: Speaker Boost
+            speed:
+              description: Швидкість генерації мовлення
+              label: Speed
+            stability:
+              description: Стабільність/випадковість голосу
+              label: Stability
+            style:
+              description: Виразність/стиль голосу
+              label: Style
+        playground:
+          buttons:
+            button:
+              test-voice:
+                generating: Генерація...
+                label: Протестувати голос
+          fields:
+            field:
+              input:
+                placeholder: Введіть текст для тесту голосу...
+              language:
+                description: Оберіть мову голосу
+                label: Мова
+              voice:
+                description: Оберіть бажаний голос
+                label: Голос
+          title: Пісочниця голосу
+          validation:
+            error-missing-api-key: Введіть API-ключ, щоб протестувати голос.
+        title: ElevenLabs
+      fireworks:
+        description: fireworks.ai
+        title: Fireworks.ai
+      microsoft-speech:
+        description: speech.microsoft.com
+        fields:
+          field:
+            region:
+              description: Регіон Speech Service
+              label: Регіон
+        title: Microsoft / Azure Speech
+      index-tts-vllm:
+        description: https://index-tts.github.io/
+        title: Bilibili / IndexTTS
+      mistral:
+        description: mistral.ai
+        title: Mistral
+      moonshot:
+        description: moonshot.ai
+        title: Moonshot AI
+      modelscope:
+        description: modelscope.cn
+        title: ModelScope
+      novita:
+        description: novita.ai
+        title: Novita
+      ollama:
+        description: ollama.ai
+        title: Ollama
+      openai:
+        description: openai.com
+        title: OpenAI
+      openai-compatible:
+        description: Сумісний з OpenAI
+        title: OpenAI Compatible
+      openrouter:
+        description: openrouter.ai
+        title: OpenRouter
+      perplexity:
+        description: perplexity.ai
+        title: Perplexity
+      player2:
+        description: player2.game
+        title: Player2
+      together:
+        description: together.ai
+        title: Together.ai
+      google-generative-ai:
+        description: gemini.google.com
+        title: Google Gemini
+      featherless:
+        description: featherless.ai
+        title: Featherless AI
+      lm-studio:
+        description: lmstudio.ai
+        title: LM Studio
+      vllm:
+        description: vllm.ai
+        title: vLLM
+      volcengine:
+        description: volcengine.com
+        fields:
+          field:
+            appId:
+              description: App ID проекту (отримується в Console)
+              label: App ID
+        title: Volcano Engine
+      xai:
+        description: x.ai
+        title: xAI
+      transcriptions:
+        playground:
+          title: Пісочниця транскрипції
+    title: Провайдери
+  scene:
+    description: Налаштуйте середовище, де живе персонаж
+    title: Сцена
+  themes:
+    color-scheme:
+      description: Змінити кольорову схему сцени
+      title: Кольорова схема
+    developer:
+      description: Опції розробника
+      title: Розробники
+    general:
+      description: Тема, мови тощо
+      title: Загальні
+    description: Налаштуйте вашу сцену!
+    sections:
+      section:
+        custom-color:
+          fields:
+            field:
+              primary-color:
+                label: Основний колір
+                rgb-on:
+                  title: Хочу динамічний!
+          title: Кольорова схема
+        developer:
+          title: Розробник
+        theme-presets:
+          presets:
+            - colors:
+                - AIRI Green
+              description: Стандартний зелений відтінок AIRI
+              title: Колір за замовчуванням
+            - colors:
+                - Taupe
+                - Beige
+                - Ash Grey
+                - Light Taupe
+                - Ivory
+                - Olive Grey
+                - Sand
+                - Warm Grey
+              description: Приглушені тони в стилі Джорджо Моранді
+              title: Кольори Моранді
+            - colors:
+                - Sky Blue
+                - Mist
+                - Sand
+                - Moss Green
+                - Water Lily
+                - Wheat
+                - Slate Blue
+                - Sage
+              description: Палітра імпресіонізму, натхненна Моне
+              title: Кольори Моне
+            - colors:
+                - Tan
+                - Warm Taupe
+                - Umber
+                - Coffee
+                - Bronze
+                - Gold
+                - Mustard
+                - Amber
+              description: Традиційна японська кольорова палітра
+              title: Японські кольори
+            - colors:
+                - Nordic Blue
+                - Ice
+                - Fjord
+                - Steel
+                - Glacier
+                - Slate
+                - Cloud
+                - Stone
+              description: Скандинавська мінімалістична схема
+              title: Північні кольори
+            - colors:
+                - Rosy Dawn
+                - Chinese Red
+                - Smoky Brown
+                - Bamboo Green
+                - Dark Purple
+                - Golden Yellow
+                - Azure Blue
+                - Ochre
+              description: >-
+                Традиційні китайські кольори, натхненні текстилем, порцеляною та живописом
+              title: Китайські традиційні кольори
+          title: Набори кольорових схем
+    title: Зовнішній вигляд
+sections:
+  section:
+    general:
+      title: Загальні
+theme:
+  title: Тема
+  description: |
+    Переключення основної теми AIRI: світла або темна.
+title: Налаштування
+voices: Голос
+development:
+  callout:
+    label: В розробці, потрібна ваша допомога!
+    description: >-
+      Ця функціональність все ще в розробці. Якщо у вас є пропозиції або ви хочете допомогти,
+      будь ласка, зверніться до нас на нашій
+    githubLink: сторінці GitHub issues
+    sourceCodeText: Вихідний код цієї сторінки знаходиться
+    hereLink: тут
+modelSupport:
+  label: Ми підтримуємо як 2D, так і 3D моделі
+  description1: >-
+    Натисніть Обрати модель для імпорту різних форматів
+    моделей до каталогу, на даний момент підтримуються .zip (Live2D) та .vrm (VRM).
+  description2: >-
+    Neuro-sama використовує 2D модель, керовану фреймворком, розробленим Live2D Inc.
+    У той час як Grok Ani (перший жіночий персонаж, анонсований у Grok Companion)
+    використовує 3D модель, керовану відкритими форматами VRM / MMD.
+  selectModel: Обрати модель
+errors:
+  inference: Помилка обробки
+vrm:
+  change-model:
+    from-file: Завантажити з файлу
+    from-file-select: Обрати
+    from-url: Завантажити за URL
+    from-url-confirm: Завантажити
+    from-url-placeholder: Введіть URL моделі VRM
+    title: Зміна моделі
+  title: Налаштування VRM
+  scale-and-position:
+    model-info-title: Інформація про розмір моделі
+    model-info-x: Ширина (X)
+    model-info-y: Висота (Y)
+    model-info-z: Глибина (Z)
+    tips: |
+      Налаштуйте початкову позицію моделі VRM.
+      Осі координат візуалізовані.
+    scale: Масштаб
+    x: Зміщення по X
+    'y': Зміщення по Y
+    z: Зміщення по Z
+    fov: Кут огляду (градуси)
+    rotation-y: Обертання (вісь Y)
+    camera-distance: Відстань камери
+    eye-tracking-mode:
+      title: Дивитися на
+      options:
+        option:
+          camera: Камеру
+          mouse: Мишу
+          disabled: Вимкнено
+  switch-to-vrm:
+    title: Переключитися на аватар Live2D?
+    change-to-vrm: Натисніть тут, щоб переключитися на налаштування Live2D
+  theme-color-from-model:
+    button-extract:
+      title: Витягти
+  skybox:
+    skybox-intensity: Інтенсивність SkyBox
+    skybox-specular-mix: Specular Mix

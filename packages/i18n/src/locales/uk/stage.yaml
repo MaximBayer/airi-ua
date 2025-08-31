@@ -1,0 +1,32 @@
+chat:
+  message:
+    character-name:
+      airi: AIRI
+      core-system: Core система
+      you: Ти
+message: Запитай щось
+operations:
+  load-models: Завантажити моделі
+  load-models-status:
+    loading: Завантажується...
+    ready: Готово!
+select-a-audio-input: Оберіть аудіо вхід
+select-a-model: Оберіть модель
+select-a-voice: Оберіть голос
+viewers:
+  debug-menu:
+    emotions: Емоції
+    emotions-btn:
+      angry: 😠 Злість
+      awkward: 😳 Незручність
+      happy: 😄 Радість
+      neutral: 🙂 Нейтраль
+      question: 🤔 Питання
+      sad: 😫 Сум
+      surprised: 🤯 Здивування
+      think: 🤨 Задумливість
+    vrm:
+      camera: Камера
+      model:
+        title: Модель
+waiting: Очікування

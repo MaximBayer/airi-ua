@@ -1,0 +1,45 @@
+{
+  "name": "@proj-airi/ui-loading-screens",
+  "type": "module",
+  "private": true,
+  "description": "A collection of loading screens that used by Project AIRI",
+  "author": {
+    "name": "Moeru AI Project AIRI Team",
+    "email": "airi@moeru.ai",
+    "url": "https://github.com/moeru-ai"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moeru-ai/airi.git",
+    "directory": "packages/ui-loading-screens"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./*": "./*"
+  },
+  "scripts": {
+    "play:dev": "vite",
+    "play:build": "vite build",
+    "play:preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@proj-airi/font-departure-mono": "workspace:^",
+    "@rive-app/canvas-lite": "^2.31.2",
+    "@vueuse/core": "^13.8.0",
+    "@vueuse/motion": "^3.0.3",
+    "vue": "^3.5.20"
+  },
+  "devDependencies": {
+    "@proj-airi/ui": "workspace:^",
+    "@unocss/reset": "^66.4.2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "unplugin-vue-router": "^0.15.0",
+    "vite": "catalog:rolldown-vite",
+    "vite-plugin-vue-devtools": "^8.0.1",
+    "vue-router": "^4.5.1",
+    "vue-tsc": "^3.0.6"
+  }
+}
