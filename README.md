@@ -37,6 +37,7 @@ pnpm tauri build
 2. **Розпакуйте** в будь-яку папку на вашому комп'ютері
 3. **Запустіть** `start-airi.bat`
 <img width="495" height="244" alt="Знімок екрана 2025-08-31 142439" src="https://github.com/user-attachments/assets/9cbb2ac3-083e-499a-945a-2d8ab69c4d6f" />
+
 4. **Відкриється** браузер з AIRI інтерфейсом
 5. **Готово!** AIRI працює локально у вашому браузері
 
