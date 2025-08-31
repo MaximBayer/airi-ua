@@ -13,7 +13,7 @@ AIRI з повною українською локалізацією - AI аси
 ## Завантаження
 
 ### 🖥️ Десктоп додаток (Рекомендовано)
-Завантажте готовий exe файл з розділу [Releases](https://github.com/MaximBayer/airi-ua/releases):
+Завантажте готовий exe файл з розділу [Releases](https://github.com/MaximBayer/airi-ua/releases/tag/v0.7.2-beta.2-ua):
 - `AIRI_0.7.2-beta.2_x64-setup.exe` - Встановлювач для Windows
 
 ### 🌐 Портативна веб-версія
@@ -33,7 +33,7 @@ pnpm tauri build
 
 ## Як використовувати портативну версію
 
-1. **Завантажте** `AIRI-Ukrainian-Portable.zip` з [Releases](https://github.com/MaximBayer/airi-ua/releases)
+1. **Завантажте** `AIRI-Ukrainian-Portable.zip` з [Releases](https://github.com/MaximBayer/airi-ua/releases/tag/v1.0.0-ua)
 2. **Розпакуйте** в будь-яку папку на вашому комп'ютері
 3. **Запустіть** `start-airi.bat`
 <img width="495" height="244" alt="Знімок екрана 2025-08-31 142439" src="https://github.com/user-attachments/assets/9cbb2ac3-083e-499a-945a-2d8ab69c4d6f" />
