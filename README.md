@@ -1,4 +1,5 @@
-<img width="1280" height="640" alt="image" src="https://github.com/user-attachments/assets/78789b7e-e0b1-4be1-adb8-cbd814fc645d" />
+<img width="1536" height="1024" alt="airi-ua" src="https://github.com/user-attachments/assets/b8465012-a0de-4b2c-8c2e-85f67e5beb56" />
+
 
 
 # AIRI - Українська локалізація 🇺🇦
