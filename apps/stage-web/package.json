@@ -17,6 +17,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
     "@date-fns/utc": "^2.1.1",
     "@formkit/auto-animate": "^0.8.4",
     "@huggingface/transformers": "^3.7.2",

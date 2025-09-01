@@ -1,0 +1,14 @@
+# Android build files
+android/app/build/
+android/build/
+android/capacitor-cordova-android-plugins/build/
+android/local.properties
+
+# Distribution files
+dist/
+
+# Node modules
+node_modules/
+
+# Capacitor generated files
+android/app/src/main/assets/public/
