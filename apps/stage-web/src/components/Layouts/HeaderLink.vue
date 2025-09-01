@@ -37,7 +37,7 @@ const dark = useDark()
       transition="all duration-200"
       title="GitHub Repository"
     >
-      <div i-simple-icons:github size-4 />
+      <div i-carbon:logo-github size-4 />
       <span class="hidden md:inline text-sm font-medium">GitHub</span>
     </a>
   </div>

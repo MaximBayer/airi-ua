@@ -88,7 +88,7 @@ const localDate = formatISO9075(new UTCDate(committerDate))
             transition="colors,transform duration-200 ease-in-out"
             target="_blank"
           >
-            <div i-simple-icons:github /><div>GitHub (Ukrainian)</div>
+            <div i-carbon:logo-github /><div>GitHub (Ukrainian)</div>
           </a>
           <a
             href="https://github.com/moeru-ai/airi"
@@ -101,7 +101,7 @@ const localDate = formatISO9075(new UTCDate(committerDate))
             transition="colors,transform duration-200 ease-in-out"
             target="_blank"
           >
-            <div i-simple-icons:github /><div>GitHub (Original)</div>
+            <div i-carbon:logo-github /><div>GitHub (Original)</div>
           </a>
         </div>
       </div>
