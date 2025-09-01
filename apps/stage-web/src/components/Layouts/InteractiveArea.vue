@@ -28,7 +28,7 @@ const { themeColorsHueDynamic } = storeToRefs(useSettings())
 
 const { askPermission } = useSettingsAudioDevice()
 const { enabled, selectedAudioInput } = storeToRefs(useSettingsAudioDevice())
-const { send, onAfterMessageComposed, discoverToolsCompatibility } = useChatStore()
+const { send, onAfterMessageComposed, discoverToolsCompatibility, clearChatHistory } = useChatStore()
 const { messages } = storeToRefs(useChatStore())
 const { audioContext } = useAudioContext()
 const { t } = useI18n()
@@ -144,6 +144,16 @@ onAfterMessageComposed(async () => {
         h-full w-full overflow-scroll rounded-xl
         bg="primary-50/50 dark:primary-950/70" backdrop-blur-md
       >
+        <div flex items-center justify-between px-4 pt-2>
+          <div />
+          <button
+            class="clear-chat-btn"
+            title="Очистити історію чату"
+            @click="clearChatHistory"
+          >
+            <div i-solar:trash-bin-minimalistic-outline size-4 />
+          </button>
+        </div>
         <ChatHistory h-full flex-1 p-4 w="full" max-h="<md:[60%]" />
         <div h="<md:full" flex gap-2>
           <BasicTextarea
@@ -166,3 +176,12 @@ onAfterMessageComposed(async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.clear-chat-btn {
+  @apply p-2 rounded-lg transition-all duration-200;
+  @apply text-primary-400 hover:text-primary-600 dark:text-primary-300 dark:hover:text-primary-100;
+  @apply bg-primary-100/50 hover:bg-primary-200/70 dark:bg-primary-800/50 dark:hover:bg-primary-700/70;
+  @apply backdrop-blur-sm;
+}
+</style>

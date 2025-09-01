@@ -4,6 +4,7 @@ import type { CommonContentPart, Message, SystemMessage } from '@xsai/shared-cha
 import type { StreamEvent } from '../stores/llm'
 import type { ChatAssistantMessage, ChatMessage, ChatSlices } from '../types/chat'
 
+import { useLocalStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
 import { ref, toRaw } from 'vue'
 
@@ -69,7 +70,7 @@ export const useChatStore = defineStore('chat', () => {
   const codeBlockSystemPrompt = '- For any programming code block, always specify the programming language that supported on @shikijs/rehype on the rendered markdown, eg. ```python ... ```\n'
   const mathSyntaxSystemPrompt = '- For any math equation, use LaTeX format, eg: $ x^3 $, always escape dollar sign outside math equation\n'
 
-  const messages = ref<Array<ChatMessage | ErrorMessage>>([
+  const messages = useLocalStorage<Array<ChatMessage | ErrorMessage>>('chat-messages', [
     {
       role: 'system',
       content: codeBlockSystemPrompt + mathSyntaxSystemPrompt + systemPrompt.value, // TODO: compose, replace {{ user }} tag, etc
@@ -243,6 +244,37 @@ export const useChatStore = defineStore('chat', () => {
     }
   }
 
+  function clearChatHistory() {
+    messages.value = [
+      {
+        role: 'system',
+        content: codeBlockSystemPrompt + mathSyntaxSystemPrompt + systemPrompt.value,
+      } satisfies SystemMessage,
+    ]
+  }
+
+  function exportChatHistory() {
+    return JSON.stringify(messages.value.filter(msg => msg.role !== 'system'), null, 2)
+  }
+
+  function importChatHistory(historyJson: string) {
+    try {
+      const importedMessages = JSON.parse(historyJson)
+      messages.value = [
+        {
+          role: 'system',
+          content: codeBlockSystemPrompt + mathSyntaxSystemPrompt + systemPrompt.value,
+        } satisfies SystemMessage,
+        ...importedMessages,
+      ]
+      return true
+    }
+    catch (error) {
+      console.error('Failed to import chat history:', error)
+      return false
+    }
+  }
+
   return {
     sending,
     messages,
@@ -251,6 +283,9 @@ export const useChatStore = defineStore('chat', () => {
     discoverToolsCompatibility,
 
     send,
+    clearChatHistory,
+    exportChatHistory,
+    importChatHistory,
 
     onBeforeMessageComposed,
     onAfterMessageComposed,
