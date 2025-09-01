@@ -112,7 +112,7 @@ onTokenLiteral(async () => {
                 />
               </template>
               <template v-else>
-                <div v-for="(part, partIndex) in message.content" :key="partIndex" class="content-part">
+                <div v-for="(part, partIndex) in (message.content as any[])" :key="partIndex" class="content-part">
                   <MarkdownRenderer
                     v-if="part.type === 'text'"
                     :content="(part as any).text"

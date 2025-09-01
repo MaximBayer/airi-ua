@@ -89,7 +89,7 @@ async function handleSend() {
       content = messageInput.value.trim()
     }
 
-    await send(content, {
+    await send(content as any, {
       chatProvider: await providersStore.getProviderInstance(activeProvider.value) as ChatProvider,
       model: activeModel.value,
       providerConfig,
