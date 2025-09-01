@@ -119,9 +119,9 @@ onTokenLiteral(async () => {
                     class="break-words"
                     text="base <sm:xs"
                   />
-                  <div v-else-if="part.type === 'image'" class="image-part" my-2>
+                  <div v-else-if="part.type === 'image_url'" class="image-part" my-2>
                     <img
-                      :src="(part as any).image"
+                      :src="(part as any).image_url?.url"
                       alt="Uploaded image"
                       class="max-h-64 max-w-xs border border-cyan-200 rounded-lg"
                       loading="lazy"

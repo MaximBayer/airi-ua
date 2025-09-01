@@ -1,4 +1,9 @@
 chat:
+  imageUpload:
+    dropOrClick: Перетягніть зображення сюди або натисніть для вибору
+    supportedFormats: 'Підтримуються: PNG, JPG, GIF, WebP'
+    imagesSelected: 'Обрано {count} зображень'
+    clearAll: Очистити все
   message:
     character-name:
       airi: AIRI

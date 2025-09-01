@@ -1,4 +1,9 @@
 chat:
+  imageUpload:
+    dropOrClick: Drop images here or click to select
+    supportedFormats: 'Supports: PNG, JPG, GIF, WebP'
+    imagesSelected: '{count} image(s) selected'
+    clearAll: Clear all
   message:
     character-name:
       airi: AIRI

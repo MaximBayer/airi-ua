@@ -60,8 +60,8 @@ async function handleSend() {
   try {
     const providerConfig = providersStore.getProviderConfig(activeProvider.value)
 
-    // Prepare content - either text only or multimodal
-    let content: string | Array<{ type: 'text' | 'image', text?: string, image?: string }>
+    // Prepare content - either text only or multimodal (OpenAI format)
+    let content: string | Array<{ type: 'text', text: string } | { type: 'image_url', image_url: { url: string } }>
 
     if (uploadedImages.value.length > 0) {
       // Convert images to base64
@@ -75,13 +75,16 @@ async function handleSend() {
 
       const imageDataUrls = await Promise.all(imagePromises)
 
-      // Create multimodal content
-      const multimodalContent: Array<{ type: 'text' | 'image', text?: string, image?: string }> = []
+      // Create multimodal content following OpenAI format
+      const multimodalContent: Array<{ type: 'text', text: string } | { type: 'image_url', image_url: { url: string } }> = []
       if (messageInput.value.trim()) {
         multimodalContent.push({ type: 'text', text: messageInput.value.trim() })
       }
       imageDataUrls.forEach((imageUrl) => {
-        multimodalContent.push({ type: 'image', image: imageUrl })
+        multimodalContent.push({
+          type: 'image_url',
+          image_url: { url: imageUrl },
+        })
       })
       content = multimodalContent
     }
@@ -190,7 +193,13 @@ onAfterMessageComposed(async () => {
         bg="primary-50/50 dark:primary-950/70" backdrop-blur-md
       >
         <div flex items-center justify-between px-4 pt-2>
-          <div />
+          <button
+            class="image-upload-btn"
+            title="Прикріпити зображення"
+            @click="() => imageUploadRef?.openFileDialog?.()"
+          >
+            <div i-solar:gallery-add-outline size-4 />
+          </button>
           <button
             class="clear-chat-btn"
             title="Очистити історію чату"
@@ -201,8 +210,17 @@ onAfterMessageComposed(async () => {
         </div>
         <ChatHistory h-full flex-1 p-4 w="full" max-h="<md:[60%]" />
         <div h="<md:full" flex="~ col" gap-2>
-          <!-- Image Upload Area -->
-          <div v-if="uploadedImages.length > 0 || !messageInput.trim()" px-4>
+          <!-- Image Upload Area - only show when images are uploaded -->
+          <div v-if="uploadedImages.length > 0" px-4>
+            <ImageUpload
+              ref="imageUploadRef"
+              @upload="handleImageUpload"
+              @clear="handleImageClear"
+            />
+          </div>
+
+          <!-- Hidden image upload for file dialog functionality -->
+          <div v-else style="display: none;">
             <ImageUpload
               ref="imageUploadRef"
               @upload="handleImageUpload"
@@ -236,6 +254,13 @@ onAfterMessageComposed(async () => {
 
 <style scoped>
 .clear-chat-btn {
+  @apply p-2 rounded-lg transition-all duration-200;
+  @apply text-primary-400 hover:text-primary-600 dark:text-primary-300 dark:hover:text-primary-100;
+  @apply bg-primary-100/50 hover:bg-primary-200/70 dark:bg-primary-800/50 dark:hover:bg-primary-700/70;
+  @apply backdrop-blur-sm;
+}
+
+.image-upload-btn {
   @apply p-2 rounded-lg transition-all duration-200;
   @apply text-primary-400 hover:text-primary-600 dark:text-primary-300 dark:hover:text-primary-100;
   @apply bg-primary-100/50 hover:bg-primary-200/70 dark:bg-primary-800/50 dark:hover:bg-primary-700/70;

@@ -78,6 +78,7 @@ function openFileDialog() {
 
 defineExpose({
   clearAll,
+  openFileDialog,
 })
 </script>
 
