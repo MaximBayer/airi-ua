@@ -142,14 +142,9 @@ But why was this so important to support?
 
 It's because that for the very first version of Neuro-sama, the text-to-speech
 service was powered by Microsoft, with the voice named `Ashley`, along with a
-`+20%` of pitch, you can get the same voice as Neuro-sama's first version, try it
-yourself:
+`+20%` of pitch, you can get the same voice as Neuro-sama's first version.
 
-<audio controls style="width: 100%;">
-  <source src="./assets/ashley-pitch-test.mp3" />
-</audio>
-
-Isn't it the same, this is insane! That's means, we can finally approach to
+Isn't it amazing! That's means, we can finally approach to
 what Neuro-sama can do with the new **Speech** ability!
 
 <img :src="SteinsGateMayori" alt="character from anime Steins;Gate" />
