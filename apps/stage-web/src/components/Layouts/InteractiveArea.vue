@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ChatProvider } from '@xsai-ext/shared-providers'
 
+import ImageUpload from '@proj-airi/stage-ui/components/Chat/ImageUpload.vue'
 import WhisperWorker from '@proj-airi/stage-ui/libs/workers/worker?worker&url'
 
 import { toWAVBase64 } from '@proj-airi/audio'
@@ -21,6 +22,8 @@ const messageInput = ref('')
 const listening = ref(false)
 const showMicrophoneSelect = ref(false)
 const isComposing = ref(false)
+const uploadedImages = ref<File[]>([])
+const imageUploadRef = ref<InstanceType<typeof ImageUpload>>()
 
 const providersStore = useProvidersStore()
 const { activeProvider, activeModel } = storeToRefs(useConsciousnessStore())
@@ -50,18 +53,52 @@ const { transcribe: generate, terminate } = useWhisper(WhisperWorker, {
 })
 
 async function handleSend() {
-  if (!messageInput.value.trim() || isComposing.value) {
+  if ((!messageInput.value.trim() && uploadedImages.value.length === 0) || isComposing.value) {
     return
   }
 
   try {
     const providerConfig = providersStore.getProviderConfig(activeProvider.value)
 
-    await send(messageInput.value, {
+    // Prepare content - either text only or multimodal
+    let content: string | Array<{ type: 'text' | 'image', text?: string, image?: string }>
+
+    if (uploadedImages.value.length > 0) {
+      // Convert images to base64
+      const imagePromises = uploadedImages.value.map((file) => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader()
+          reader.onload = e => resolve(e.target?.result as string)
+          reader.readAsDataURL(file)
+        })
+      })
+
+      const imageDataUrls = await Promise.all(imagePromises)
+
+      // Create multimodal content
+      const multimodalContent: Array<{ type: 'text' | 'image', text?: string, image?: string }> = []
+      if (messageInput.value.trim()) {
+        multimodalContent.push({ type: 'text', text: messageInput.value.trim() })
+      }
+      imageDataUrls.forEach((imageUrl) => {
+        multimodalContent.push({ type: 'image', image: imageUrl })
+      })
+      content = multimodalContent
+    }
+    else {
+      content = messageInput.value.trim()
+    }
+
+    await send(content, {
       chatProvider: await providersStore.getProviderInstance(activeProvider.value) as ChatProvider,
       model: activeModel.value,
       providerConfig,
     })
+
+    // Clear input and images after sending
+    messageInput.value = ''
+    uploadedImages.value = []
+    imageUploadRef.value?.clearAll()
   }
   catch (error) {
     messages.value.pop()
@@ -70,6 +107,14 @@ async function handleSend() {
       content: (error as Error).message,
     })
   }
+}
+
+function handleImageUpload(images: File[]) {
+  uploadedImages.value = images
+}
+
+function handleImageClear() {
+  uploadedImages.value = []
 }
 
 const { destroy, start } = useMicVAD(selectedAudioInput, {
@@ -155,22 +200,34 @@ onAfterMessageComposed(async () => {
           </button>
         </div>
         <ChatHistory h-full flex-1 p-4 w="full" max-h="<md:[60%]" />
-        <div h="<md:full" flex gap-2>
-          <BasicTextarea
-            v-model="messageInput"
-            :placeholder="t('stage.message')"
-            text="primary-500 hover:primary-600 dark:primary-300/50 dark:hover:primary-500 placeholder:primary-400 placeholder:hover:primary-500 placeholder:dark:primary-300/50 placeholder:dark:hover:primary-500"
-            bg="primary-200/20 dark:primary-400/20"
-            min-h="[100px]" max-h="[300px]" w-full
-            rounded-t-xl p-4 font-medium
-            outline-none transition="all duration-250 ease-in-out placeholder:all placeholder:duration-250 placeholder:ease-in-out"
-            :class="{
-              'transition-colors-none placeholder:transition-colors-none': themeColorsHueDynamic,
-            }"
-            @submit="handleSend"
-            @compositionstart="isComposing = true"
-            @compositionend="isComposing = false"
-          />
+        <div h="<md:full" flex="~ col" gap-2>
+          <!-- Image Upload Area -->
+          <div v-if="uploadedImages.length > 0 || !messageInput.trim()" px-4>
+            <ImageUpload
+              ref="imageUploadRef"
+              @upload="handleImageUpload"
+              @clear="handleImageClear"
+            />
+          </div>
+
+          <!-- Text Input -->
+          <div flex gap-2>
+            <BasicTextarea
+              v-model="messageInput"
+              :placeholder="t('stage.message')"
+              text="primary-500 hover:primary-600 dark:primary-300/50 dark:hover:primary-500 placeholder:primary-400 placeholder:hover:primary-500 placeholder:dark:primary-300/50 placeholder:dark:hover:primary-500"
+              bg="primary-200/20 dark:primary-400/20"
+              min-h="[100px]" max-h="[300px]" w-full
+              rounded-t-xl p-4 font-medium
+              outline-none transition="all duration-250 ease-in-out placeholder:all placeholder:duration-250 placeholder:ease-in-out"
+              :class="{
+                'transition-colors-none placeholder:transition-colors-none': themeColorsHueDynamic,
+              }"
+              @submit="handleSend"
+              @compositionstart="isComposing = true"
+              @compositionend="isComposing = false"
+            />
+          </div>
         </div>
       </div>
     </div>

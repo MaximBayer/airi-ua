@@ -1,11 +1,13 @@
+export * from './Chat'
 export * from './DataPane'
 export * from './Gadgets'
 export * from './Graphics'
+export * from './ImageGeneration'
 export * from './Layouts'
 export { default as MarkdownRenderer } from './MarkdownRenderer.vue'
 export * from './Menu'
 export * from './Misc'
+
 export * from './Physics'
 export * from './Scenarios'
-
 export * from './Widgets'

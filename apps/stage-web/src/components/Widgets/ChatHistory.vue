@@ -77,6 +77,14 @@ onTokenLiteral(async () => {
                   </div>
                 </div>
                 <div v-else-if="slice.type === 'tool-call-result'" /> <!-- this line should be unreachable -->
+                <div v-else-if="slice.type === 'image'" class="image-slice" my-2>
+                  <img
+                    :src="slice.url"
+                    :alt="slice.alt || 'Generated image'"
+                    class="max-h-64 max-w-xs border border-primary-200 rounded-lg"
+                    loading="lazy"
+                  >
+                </div>
                 <MarkdownRenderer
                   v-else
                   :content="slice.text"
@@ -94,12 +102,34 @@ onTokenLiteral(async () => {
             <div>
               <span text-xs text="cyan-400/90 dark:cyan-600/90" font-normal class="inline <sm:hidden">{{ t('stage.chat.message.character-name.you') }}</span>
             </div>
-            <MarkdownRenderer
-              v-if="message.content"
-              :content="message.content as string"
-              class="break-words"
-              text="base <sm:xs"
-            />
+            <div v-if="message.content">
+              <!-- Support for multimodal content (text + images) -->
+              <template v-if="typeof message.content === 'string'">
+                <MarkdownRenderer
+                  :content="message.content"
+                  class="break-words"
+                  text="base <sm:xs"
+                />
+              </template>
+              <template v-else>
+                <div v-for="(part, partIndex) in message.content" :key="partIndex" class="content-part">
+                  <MarkdownRenderer
+                    v-if="part.type === 'text'"
+                    :content="(part as any).text"
+                    class="break-words"
+                    text="base <sm:xs"
+                  />
+                  <div v-else-if="part.type === 'image'" class="image-part" my-2>
+                    <img
+                      :src="(part as any).image"
+                      alt="Uploaded image"
+                      class="max-h-64 max-w-xs border border-cyan-200 rounded-lg"
+                      loading="lazy"
+                    >
+                  </div>
+                </div>
+              </template>
+            </div>
             <div v-else />
           </div>
         </div>
@@ -122,6 +152,14 @@ onTokenLiteral(async () => {
                 </div>
               </div>
               <div v-else-if="slice.type === 'tool-call-result'" /> <!-- this line should be unreachable -->
+              <div v-else-if="slice.type === 'image'" class="image-slice" my-2>
+                <img
+                  :src="slice.url"
+                  :alt="slice.alt || 'Generated image'"
+                  class="max-h-64 max-w-xs border border-primary-200 rounded-lg"
+                  loading="lazy"
+                >
+              </div>
               <MarkdownRenderer
                 v-else
                 :content="slice.text"

@@ -50,11 +50,12 @@ import { useI18n } from 'vue-i18n'
 
 import { isUrl } from '../utils/url'
 import { models as elevenLabsModels } from './providers/elevenlabs/list-models'
+import { imageGenerationProviders } from './providers/image-generation'
 
 export interface ProviderMetadata {
   id: string
   order?: number
-  category: 'chat' | 'embed' | 'speech' | 'transcription'
+  category: 'chat' | 'embed' | 'speech' | 'transcription' | 'image-generation'
   tasks: string[]
   nameKey: string // i18n key for provider name
   name: string // Default name (fallback)
@@ -2342,6 +2343,9 @@ export const useProvidersStore = defineStore('providers', () => {
         },
       },
     },
+
+    // Image Generation Providers
+    ...imageGenerationProviders,
   }
 
   // Configuration validation functions
@@ -2557,6 +2561,10 @@ export const useProvidersStore = defineStore('providers', () => {
     return availableProvidersMetadata.value.filter(metadata => metadata.category === 'transcription')
   })
 
+  const allImageGenerationProvidersMetadata = computed(() => {
+    return availableProvidersMetadata.value.filter(metadata => metadata.category === 'image-generation')
+  })
+
   const configuredChatProvidersMetadata = computed(() => {
     return allChatProvidersMetadata.value.filter(metadata => configuredProviders.value[metadata.id])
   })
@@ -2567,6 +2575,10 @@ export const useProvidersStore = defineStore('providers', () => {
 
   const configuredTranscriptionProvidersMetadata = computed(() => {
     return allAudioTranscriptionProvidersMetadata.value.filter(metadata => configuredProviders.value[metadata.id])
+  })
+
+  const configuredImageGenerationProvidersMetadata = computed(() => {
+    return allImageGenerationProvidersMetadata.value.filter(metadata => configuredProviders.value[metadata.id])
   })
 
   function getProviderConfig(providerId: string) {
@@ -2595,8 +2607,10 @@ export const useProvidersStore = defineStore('providers', () => {
     allChatProvidersMetadata,
     allAudioSpeechProvidersMetadata,
     allAudioTranscriptionProvidersMetadata,
+    allImageGenerationProvidersMetadata,
     configuredChatProvidersMetadata,
     configuredSpeechProvidersMetadata,
     configuredTranscriptionProvidersMetadata,
+    configuredImageGenerationProvidersMetadata,
   }
 })

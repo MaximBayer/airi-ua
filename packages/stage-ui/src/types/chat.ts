@@ -16,7 +16,13 @@ export interface ChatSlicesToolCallResult {
   result?: string | CommonContentPart[]
 }
 
-export type ChatSlices = ChatSlicesText | ChatSlicesToolCall | ChatSlicesToolCallResult
+export interface ChatSlicesImage {
+  type: 'image'
+  url: string
+  alt?: string
+}
+
+export type ChatSlices = ChatSlicesText | ChatSlicesToolCall | ChatSlicesToolCallResult | ChatSlicesImage
 
 export interface ChatAssistantMessage extends AssistantMessage {
   slices: ChatSlices[]
