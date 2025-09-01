@@ -30,11 +30,7 @@ const dark = useDark()
       href="https://github.com/MaximBayer/airi-ua"
       target="_blank"
       rel="noopener noreferrer"
-      class="github-button"
-      flex items-center gap-2 rounded-lg px-3 py-2
-      bg="neutral-100/60 hover:neutral-200/60 dark:neutral-800/60 dark:hover:neutral-700/60"
-      text="neutral-600 hover:neutral-800 dark:neutral-400 dark:hover:neutral-200"
-      transition="all duration-200"
+      class="github-button flex items-center gap-2 rounded-lg px-3 py-2 transition-all duration-200"
       title="GitHub Repository"
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -51,16 +47,27 @@ const dark = useDark()
 }
 
 .github-button {
+  background: rgba(163, 163, 163, 0.6);
+  color: rgb(82, 82, 82);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .github-button:hover {
+  background: rgba(163, 163, 163, 0.8);
+  color: rgb(38, 38, 38);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.dark .github-button {
+  background: rgba(64, 64, 64, 0.6);
+  color: rgb(163, 163, 163);
+}
+
 .dark .github-button:hover {
+  background: rgba(82, 82, 82, 0.6);
+  color: rgb(229, 229, 229);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 </style>
