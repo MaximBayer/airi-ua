@@ -78,6 +78,19 @@ const localDate = formatISO9075(new UTCDate(committerDate))
             <div i-solar:document-add-outline /><div>Documentations</div>
           </a>
           <a
+            href="https://github.com/MaximBayer/airi-ua"
+            :class="[
+              'block', 'flex items-center gap-2',
+              'rounded-xl px-3 py-2 lg:px-5 lg:py-3 outline-none backdrop-blur-md active:scale-95 focus:outline-none text-nowrap text-sm md:text-base',
+              'text-slate-700 dark:text-slate-100',
+            ]"
+            bg="black/4 dark:black/10 dark:hover:white/30"
+            transition="colors,transform duration-200 ease-in-out"
+            target="_blank"
+          >
+            <div i-simple-icons:github /><div>GitHub (Ukrainian)</div>
+          </a>
+          <a
             href="https://github.com/moeru-ai/airi"
             :class="[
               'block', 'flex items-center gap-2',
@@ -88,7 +101,7 @@ const localDate = formatISO9075(new UTCDate(committerDate))
             transition="colors,transform duration-200 ease-in-out"
             target="_blank"
           >
-            <div i-simple-icons:github /><div>GitHub</div>
+            <div i-simple-icons:github /><div>GitHub (Original)</div>
           </a>
         </div>
       </div>

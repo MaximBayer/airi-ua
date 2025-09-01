@@ -130,6 +130,17 @@ onMounted(() => {
       <div translate-y="[-100%]" absolute right-0 w-full px-3 pb-3 font-sans>
         <div flex="~ col" w-full gap-1>
           <ActionAbout />
+          <a
+            href="https://github.com/MaximBayer/airi-ua"
+            target="_blank"
+            rel="noopener noreferrer"
+            border="2 solid neutral-100/60 dark:neutral-800/30"
+            bg="neutral-50/70 dark:neutral-800/70"
+            w-fit flex items-center self-end justify-center rounded-xl p-2 backdrop-blur-md
+            title="GitHub Repository"
+          >
+            <div i-simple-icons:github size-5 text="neutral-500 dark:neutral-400" />
+          </a>
           <button border="2 solid neutral-100/60 dark:neutral-800/30" bg="neutral-50/70 dark:neutral-800/70" w-fit flex items-center self-end justify-center rounded-xl p-2 backdrop-blur-md title="Theme" @click="isDark = !isDark">
             <Transition name="fade" mode="out-in">
               <div v-if="isDark" i-solar:moon-outline size-5 text="neutral-500 dark:neutral-400" />
