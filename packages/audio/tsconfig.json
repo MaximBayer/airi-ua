@@ -7,16 +7,15 @@
     ],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": [
-      "@types/audioworklet"
-    ],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.d.ts"
   ]
 }

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type ImageUpload from '@proj-airi/stage-ui/components/Chat/ImageUpload.vue'
 import type { ChatProvider } from '@xsai-ext/shared-providers'
 
 import { useMicVAD } from '@proj-airi/stage-ui/composables'
@@ -26,6 +27,8 @@ const viewControlsInputsRef = useTemplateRef<InstanceType<typeof ViewControlInpu
 const messageInput = ref('')
 const listening = ref(false)
 const isComposing = ref(false)
+const uploadedImages = ref<File[]>([])
+const imageUploadRef = ref<InstanceType<typeof ImageUpload>>()
 
 const screenSafeArea = useScreenSafeArea()
 const providersStore = useProvidersStore()
@@ -41,18 +44,55 @@ const { messages } = storeToRefs(useChatStore())
 const { t } = useI18n()
 
 async function handleSend() {
-  if (!messageInput.value.trim() || isComposing.value) {
+  if ((!messageInput.value.trim() && uploadedImages.value.length === 0) || isComposing.value) {
     return
   }
 
   try {
     const providerConfig = providersStore.getProviderConfig(activeProvider.value)
 
-    await send(messageInput.value, {
+    // Prepare content - either text only or multimodal (OpenAI format)
+    let content: string | Array<{ type: 'text', text: string } | { type: 'image_url', image_url: { url: string } }>
+
+    if (uploadedImages.value.length > 0) {
+      // Convert images to base64
+      const imagePromises = uploadedImages.value.map((file) => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader()
+          reader.onload = e => resolve(e.target?.result as string)
+          reader.readAsDataURL(file)
+        })
+      })
+
+      const imageDataUrls = await Promise.all(imagePromises)
+
+      // Create multimodal content following OpenAI format
+      const multimodalContent: Array<{ type: 'text', text: string } | { type: 'image_url', image_url: { url: string } }> = []
+      if (messageInput.value.trim()) {
+        multimodalContent.push({ type: 'text', text: messageInput.value.trim() })
+      }
+      imageDataUrls.forEach((imageUrl) => {
+        multimodalContent.push({
+          type: 'image_url',
+          image_url: { url: imageUrl },
+        })
+      })
+      content = multimodalContent
+    }
+    else {
+      content = messageInput.value.trim()
+    }
+
+    await send(content as any, {
       chatProvider: await providersStore.getProviderInstance(activeProvider.value) as ChatProvider,
       model: activeModel.value,
       providerConfig,
     })
+
+    // Clear input and images after sending
+    messageInput.value = ''
+    uploadedImages.value = []
+    imageUploadRef.value?.clearAll()
   }
   catch (error) {
     messages.value.pop()
@@ -92,6 +132,14 @@ const { destroy, start } = useMicVAD(selectedAudioInput, {
 function handleTranscription(_buffer: Float32Array<ArrayBufferLike>) {
   // eslint-disable-next-line no-alert
   alert('Transcription is not implemented yet')
+}
+
+function handleImageUpload(images: File[]) {
+  uploadedImages.value = images
+}
+
+function handleImageClear() {
+  uploadedImages.value = []
 }
 
 watch(enabled, async (value) => {
@@ -147,6 +195,15 @@ onMounted(() => {
             border="2 solid neutral-100/60 dark:neutral-800/30"
             bg="neutral-50/70 dark:neutral-800/70"
             w-fit flex items-center self-end justify-center rounded-xl p-2 backdrop-blur-md
+            title="Прикріпити зображення"
+            @click="() => imageUploadRef?.openFileDialog?.()"
+          >
+            <div i-solar:gallery-add-outline size-5 text="neutral-500 dark:neutral-400" />
+          </button>
+          <button
+            border="2 solid neutral-100/60 dark:neutral-800/30"
+            bg="neutral-50/70 dark:neutral-800/70"
+            w-fit flex items-center self-end justify-center rounded-xl p-2 backdrop-blur-md
             title="Очистити історію чату"
             @click="clearChatHistory"
           >
@@ -170,33 +227,53 @@ onMounted(() => {
           <ActionViewControls v-model="viewControlsActiveMode" @reset="() => viewControlsInputsRef?.resetOnMode()" />
         </div>
       </div>
-      <div bg="white dark:neutral-800" max-h-100dvh max-w-100dvw w-full flex gap-1 overflow-auto px-3 pt-2 :style="{ paddingBottom: `${Math.max(Number.parseFloat(screenSafeArea.bottom.value.replace('px', '')), 12)}px` }">
-        <BasicTextarea
-          v-model="messageInput"
-          :placeholder="t('stage.message')"
-          border="solid 2 neutral-200/60 dark:neutral-700/60"
-          text="neutral-500 hover:neutral-600 dark:neutral-100 dark:hover:neutral-200 placeholder:neutral-400 placeholder:hover:neutral-500 placeholder:dark:neutral-300 placeholder:dark:hover:neutral-400"
-          bg="neutral-100/80 dark:neutral-950/80"
-          max-h="[10lh]" min-h="[calc(1lh+4px+4px)]"
-          w-full resize-none overflow-y-scroll rounded="[1lh]" px-4 py-0.5 outline-none backdrop-blur-md scrollbar-none
-          transition="all duration-250 ease-in-out placeholder:all placeholder:duration-250 placeholder:ease-in-out"
-          :class="[themeColorsHueDynamic ? 'transition-colors-none placeholder:transition-colors-none' : '']"
-          default-height="1lh"
-          @submit="() => {}"
-          @compositionstart="isComposing = true"
-          @compositionend="isComposing = false"
-        />
-        <button
+      <div bg="white dark:neutral-800" max-h-100dvh max-w-100dvw w-full flex="~ col" gap-2 overflow-auto px-3 pt-2 :style="{ paddingBottom: `${Math.max(Number.parseFloat(screenSafeArea.bottom.value.replace('px', '')), 12)}px` }">
+        <!-- Image Upload Area - only show when images are uploaded -->
+        <div v-if="uploadedImages.length > 0">
+          <ImageUpload
+            ref="imageUploadRef"
+            @upload="handleImageUpload"
+            @clear="handleImageClear"
+          />
+        </div>
 
-          v-if="messageInput.trim() || isComposing"
-          w="[calc(1lh+4px+4px)]" h="[calc(1lh+4px+4px)]" aspect-square flex items-center self-end justify-center rounded-full outline-none backdrop-blur-md
-          text="neutral-500 hover:neutral-600 dark:neutral-900 dark:hover:neutral-800"
-          bg="primary-50/80 dark:neutral-100/80 hover:neutral-50"
-          transition="all duration-250 ease-in-out"
-          @click="handleSend"
-        >
-          <div i-solar:arrow-up-outline />
-        </button>
+        <!-- Hidden image upload for file dialog functionality -->
+        <div v-else style="display: none;">
+          <ImageUpload
+            ref="imageUploadRef"
+            @upload="handleImageUpload"
+            @clear="handleImageClear"
+          />
+        </div>
+
+        <!-- Text Input Area -->
+        <div flex gap-1>
+          <BasicTextarea
+            v-model="messageInput"
+            :placeholder="t('stage.message')"
+            border="solid 2 neutral-200/60 dark:neutral-700/60"
+            text="neutral-500 hover:neutral-600 dark:neutral-100 dark:hover:neutral-200 placeholder:neutral-400 placeholder:hover:neutral-500 placeholder:dark:neutral-300 placeholder:dark:hover:neutral-400"
+            bg="neutral-100/80 dark:neutral-950/80"
+            max-h="[10lh]" min-h="[calc(1lh+4px+4px)]"
+            w-full resize-none overflow-y-scroll rounded="[1lh]" px-4 py-0.5 outline-none backdrop-blur-md scrollbar-none
+            transition="all duration-250 ease-in-out placeholder:all placeholder:duration-250 placeholder:ease-in-out"
+            :class="[themeColorsHueDynamic ? 'transition-colors-none placeholder:transition-colors-none' : '']"
+            default-height="1lh"
+            @submit="handleSend"
+            @compositionstart="isComposing = true"
+            @compositionend="isComposing = false"
+          />
+          <button
+            v-if="messageInput.trim() || isComposing || uploadedImages.length > 0"
+            w="[calc(1lh+4px+4px)]" h="[calc(1lh+4px+4px)]" aspect-square flex items-center self-end justify-center rounded-full outline-none backdrop-blur-md
+            text="neutral-500 hover:neutral-600 dark:neutral-900 dark:hover:neutral-800"
+            bg="primary-50/80 dark:neutral-100/80 hover:neutral-50"
+            transition="all duration-250 ease-in-out"
+            @click="handleSend"
+          >
+            <div i-solar:arrow-up-outline />
+          </button>
+        </div>
       </div>
     </div>
   </div>

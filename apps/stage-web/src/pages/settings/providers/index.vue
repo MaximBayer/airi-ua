@@ -80,9 +80,15 @@ const {
       <IconStatusItem
         v-for="(provider, index) of allAudioSpeechProvidersMetadata" :key="provider.id" v-motion
         :initial="{ opacity: 0, y: 10 }" :enter="{ opacity: 1, y: 0 }" :duration="250 + index * 10"
-        :delay="(allChatProvidersMetadata.length + index) * 50" :title="provider.localizedName || 'Unknown'"
-        :description="provider.localizedDescription" :icon="provider.icon" :icon-color="provider.iconColor"
-        :icon-image="provider.iconImage" :to="`/settings/providers/${provider.id}`" :configured="provider.configured"
+        :delay="(allChatProvidersMetadata.length + index) * 50"
+        :title="provider.id === 'google-cloud-tts' ? `${provider.localizedName || 'Unknown'} (в розробці)` : (provider.localizedName || 'Unknown')"
+        :description="provider.id === 'google-cloud-tts' ? 'Функція тимчасово недоступна' : provider.localizedDescription"
+        :icon="provider.icon"
+        :icon-color="provider.iconColor"
+        :icon-image="provider.iconImage"
+        :to="provider.id === 'google-cloud-tts' ? '' : `/settings/providers/${provider.id}`"
+        :configured="provider.configured"
+        :class="provider.id === 'google-cloud-tts' ? 'opacity-50 cursor-not-allowed' : ''"
       />
     </div>
     <div flex="~ row items-center gap-2" my-5>
@@ -103,8 +109,12 @@ const {
         v-for="(provider, index) of allAudioTranscriptionProvidersMetadata" :key="provider.id" v-motion
         :initial="{ opacity: 0, y: 10 }" :enter="{ opacity: 1, y: 0 }" :duration="250 + index * 10"
         :delay="(allChatProvidersMetadata.length + allAudioSpeechProvidersMetadata.length + index) * 50"
-        :title="provider.localizedName || 'Unknown'" :description="provider.localizedDescription" :icon="provider.icon"
-        :icon-color="provider.iconColor" :icon-image="provider.iconImage" :to="`/settings/providers/${provider.id}`"
+        :title="provider.localizedName || 'Unknown'"
+        :description="provider.localizedDescription"
+        :icon="provider.icon"
+        :icon-color="provider.iconColor"
+        :icon-image="provider.iconImage"
+        :to="`/settings/providers/${provider.id}`"
         :configured="provider.configured"
       />
     </div>

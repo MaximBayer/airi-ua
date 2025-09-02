@@ -440,6 +440,12 @@ pages:
       google-generative-ai:
         description: gemini.google.com
         title: Google Gemini
+      google-cloud-tts:
+        description: cloud.google.com/text-to-speech
+        title: Google Cloud Text-to-Speech
+      google-cloud-stt:
+        description: cloud.google.com/speech-to-text
+        title: Google Cloud Speech-to-Text
       featherless:
         description: featherless.ai
         title: Featherless AI

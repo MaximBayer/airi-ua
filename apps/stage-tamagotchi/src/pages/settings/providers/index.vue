@@ -87,13 +87,14 @@ const {
         :enter="{ opacity: 1, y: 0 }"
         :duration="250 + index * 10"
         :delay="(allChatProvidersMetadata.length + index) * 50"
-        :title="provider.localizedName || 'Unknown'"
-        :description="provider.localizedDescription"
+        :title="provider.id === 'google-cloud-tts' ? `${provider.localizedName || 'Unknown'} (в розробці)` : (provider.localizedName || 'Unknown')"
+        :description="provider.id === 'google-cloud-tts' ? 'Функція тимчасово недоступна' : provider.localizedDescription"
         :icon="provider.icon"
         :icon-color="provider.iconColor"
         :icon-image="provider.iconImage"
-        :to="`/settings/providers/${provider.id}`"
+        :to="provider.id === 'google-cloud-tts' ? '' : `/settings/providers/${provider.id}`"
         :configured="provider.configured"
+        :class="provider.id === 'google-cloud-tts' ? 'opacity-50 cursor-not-allowed' : ''"
       />
     </div>
     <div flex="~ row items-center gap-2" my-5>

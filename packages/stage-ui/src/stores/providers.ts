@@ -1342,6 +1342,140 @@ export const useProvidersStore = defineStore('providers', () => {
         },
       },
     },
+    'google-cloud-tts': {
+      id: 'google-cloud-tts',
+      category: 'speech',
+      tasks: ['text-to-speech'],
+      nameKey: 'settings.pages.providers.provider.google-cloud-tts.title',
+      name: 'Google Cloud Text-to-Speech',
+      descriptionKey: 'settings.pages.providers.provider.google-cloud-tts.description',
+      description: 'cloud.google.com/text-to-speech',
+      icon: 'i-lobe-icons:google',
+      defaultOptions: () => ({
+        baseUrl: 'https://api.openai.com/v1/',
+        model: 'tts-1',
+      }),
+      createProvider: async config => createOpenAI((config.apiKey as string).trim(), (config.baseUrl as string).trim()),
+      capabilities: {
+        listModels: async (_config) => {
+          return [
+            {
+              id: 'tts-1',
+              name: 'TTS 1 (Fast)',
+              provider: 'google-cloud-tts',
+              description: 'Швидка модель синтезу мовлення',
+              contextLength: 0,
+              deprecated: false,
+            },
+            {
+              id: 'tts-1-hd',
+              name: 'TTS 1 HD (High Quality)',
+              provider: 'google-cloud-tts',
+              description: 'Високоякісна модель синтезу мовлення',
+              contextLength: 0,
+              deprecated: false,
+            },
+          ] satisfies ModelInfo[]
+        },
+        listVoices: async () => {
+          return [
+            {
+              id: 'alloy',
+              name: 'Alloy',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+            {
+              id: 'echo',
+              name: 'Echo',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+            {
+              id: 'fable',
+              name: 'Fable',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+            {
+              id: 'onyx',
+              name: 'Onyx',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+            {
+              id: 'nova',
+              name: 'Nova',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+            {
+              id: 'shimmer',
+              name: 'Shimmer',
+              languages: [{ code: 'en-US', title: 'English (US)' }],
+              provider: 'google-cloud-tts',
+            },
+          ] as VoiceInfo[]
+        },
+      },
+      validators: {
+        validateProviderConfig: async (config) => {
+          const errors = [
+            !config.apiKey && new Error('API key is required'),
+            !config.baseUrl && new Error('Base URL is required'),
+          ].filter(Boolean)
+
+          return {
+            errors,
+            reason: errors.filter(e => e).map(e => String(e)).join(', ') || '',
+            valid: !!config.apiKey && !!config.baseUrl,
+          }
+        },
+      },
+    },
+    'google-cloud-stt': {
+      id: 'google-cloud-stt',
+      category: 'transcription',
+      tasks: ['speech-to-text', 'automatic-speech-recognition', 'asr', 'stt'],
+      nameKey: 'settings.pages.providers.provider.google-cloud-stt.title',
+      name: 'Google Cloud Speech-to-Text',
+      descriptionKey: 'settings.pages.providers.provider.google-cloud-stt.description',
+      description: 'cloud.google.com/speech-to-text',
+      icon: 'i-lobe-icons:google',
+      defaultOptions: () => ({
+        baseUrl: 'https://api.openai.com/v1/',
+        model: 'whisper-1',
+      }),
+      createProvider: async config => createOpenAI((config.apiKey as string).trim(), (config.baseUrl as string).trim()),
+      capabilities: {
+        listModels: async (_config) => {
+          return [
+            {
+              id: 'whisper-1',
+              name: 'Whisper 1',
+              provider: 'google-cloud-stt',
+              description: 'Універсальна модель розпізнавання мовлення',
+              contextLength: 0,
+              deprecated: false,
+            },
+          ] satisfies ModelInfo[]
+        },
+      },
+      validators: {
+        validateProviderConfig: async (config) => {
+          const errors = [
+            !config.apiKey && new Error('API key is required'),
+            !config.baseUrl && new Error('Base URL is required'),
+          ].filter(Boolean)
+
+          return {
+            errors,
+            reason: errors.filter(e => e).map(e => String(e)).join(', ') || '',
+            valid: !!config.apiKey && !!config.baseUrl,
+          }
+        },
+      },
+    },
     'xai': {
       id: 'xai',
       category: 'chat',
